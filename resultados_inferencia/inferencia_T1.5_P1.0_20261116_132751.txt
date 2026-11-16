@@ -1,0 +1,60 @@
+====================================================================
+RELATORIO DE INFERENCIA LOCAL - OLLAMA
+====================================================================
+Data/Hora       : 16/11/2026 13:27:51
+Modelo          : qwen2.5-coder:7b
+Temperature     : 1.5
+Top-P           : 1.0
+Num Predict     : 512
+Tokens Gerados  : 512
+Velocidade      : 39.17 tokens/s
+--------------------------------------------------------------------
+PROMPT ENVIADO:
+Implemente uma funcao em Python para verificar se uma arvore binaria e uma Arvore Binaria de Busca (BST) valida, explicando a complexidade de tempo e espaco.
+--------------------------------------------------------------------
+RESPOSTA GERADA:
+
+Em primeiro lugar, eu vou te dizer o que é uma Arvore binaria de busca (BST). Uma BST é uma árvore binária em que, cada nó tem no máximo duas filhos e seus sub-árvores esquerdos contêm apenas números menores, e os sub-árvores direitos podem apenas conter números maiores.
+
+Aqui é a sua função de check.
+
+```python
+class Node:
+    def __init__(self, val):
+        self.val = val 
+        self.left_child = None 
+        self.right_child = None 
+
+def check_bst(node, l_limit = float('-inf'), r_limit  =float('inf')):
+    ''' 
+        Checks if every node of a binary search tree
+        has a value greater than its 'max_left_sub' value, and lesser than 
+        max_right_sub value
+        
+        Return -->  boolean True iff every node value satisfies max_left_sub < current < max right_sub
+        Time --> O(n)
+        Space --> 0(n) where n --> maximum breadth (i.e., longest straight chain from node)
+    '''
+
+    # Empty Binary search tree is valid BSt therefore
+    if node is None:
+        return True
+    
+    # a valid Bst node's value must be greater than its 
+    # lower and upper boundary
+    if node.val <l_limit or node.val > max(l_limit, node.val):
+        return False 
+
+    # For a current node at `level, ` its left and right 
+    # nodes would have a maximum value to the left
+    # and minimum value from the right. Thus, left child of any current level nodes only
+    # need to lie in lower to cur_node value range and vice versa
+    return check_bst(node.left_child,l_limit, node.val) and check_bst(node.right_child, node.val,r_limit)
+```
+A função "check_bst()" recebe um nó daBST (binária de pesquisa) e a limitação superior e inferior para valores adequados abaixo e acima desse nó. Por default, isso é infinito.
+
+Primeiramente, a chave "root" de uma árvore de BST é maior que o valor limite inferior e menor que o valor limite superior, além disso em seguida é chamada recursivamente com subárvore left e subarvore right conforme os valores superiores e inferiores atualizados.  
+
+O limite inferior para a subárvore left e o padr
+
+====================================================================

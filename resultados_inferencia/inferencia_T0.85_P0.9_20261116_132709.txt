@@ -1,0 +1,69 @@
+====================================================================
+RELATORIO DE INFERENCIA LOCAL - OLLAMA
+====================================================================
+Data/Hora       : 16/11/2026 13:27:09
+Modelo          : qwen2.5-coder:7b
+Temperature     : 0.85
+Top-P           : 0.9
+Num Predict     : 512
+Tokens Gerados  : 512
+Velocidade      : 39.48 tokens/s
+--------------------------------------------------------------------
+PROMPT ENVIADO:
+Implemente uma funcao em Python para verificar se uma arvore binaria e uma Arvore Binaria de Busca (BST) valida, explicando a complexidade de tempo e espaco.
+--------------------------------------------------------------------
+RESPOSTA GERADA:
+
+Aqui está uma função em Python que verifica se uma árvore binária é uma Árvore Binária de Busca (BST) válida:
+
+```python
+class TreeNode:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+
+def is_bst(root):
+    def is_valid_bst(node, left=float('-inf'), right=float('inf')):
+        if not node:
+            return True
+        if not (left < node.val < right):
+            return False
+        return (is_valid_bst(node.left, left, node.val) and
+                is_valid_bst(node.right, node.val, right))
+    return is_valid_bst(root)
+
+# Exemplo de uso:
+#   4
+#  / \
+# 2   5
+# / \
+# 1   3
+root = TreeNode(4)
+root.left = TreeNode(2)
+root.right = TreeNode(5)
+root.left.left = TreeNode(1)
+root.left.right = TreeNode(3)
+
+print(is_bst(root))  # Output: True
+```
+
+### Explicação:
+1. **Função `is_bst`**:
+   - Esta é a função principal que inicia a verificação da BST. Ela chama a função auxiliar `is_valid_bst` com o nó raiz e intervalos de valores validos iniciais (`-inf` e `inf`).
+
+2. **Função Auxiliar `is_valid_bst`**:
+   - **Parâmetros**:
+     - `node`: O nó atual na árvore.
+     - `left`: O valor mínimo válido para o nó atual.
+     - `right`: O valor máximo válido para o nó atual.
+   - **Lógica**:
+     - Se o nó for `None`, retornamos `True` porque uma árvore vazia é uma BST válida.
+     - Se o valor do nó não estiver dentro do intervalo `[left, right]`, retornamos `False`.
+     - Recursivamente, verificamos o subárvore esquerda, atualizando o intervalo para `[left, node.val]`, e o subárvore direita, atualizando o intervalo para `[node.val, right]`.
+
+### Complexidade:
+- **Tempo**:
+  - A complexidade de tempo é O(n), onde n é o número de nós na árv
+
+====================================================================

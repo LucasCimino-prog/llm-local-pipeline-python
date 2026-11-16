@@ -1,0 +1,68 @@
+====================================================================
+RELATORIO DE INFERENCIA LOCAL - OLLAMA
+====================================================================
+Data/Hora       : 16/11/2026 13:25:20
+Modelo          : qwen2.5-coder:7b
+Temperature     : 0.0
+Top-P           : 0.9
+Num Predict     : 512
+Tokens Gerados  : 512
+Velocidade      : 38.59 tokens/s
+--------------------------------------------------------------------
+PROMPT ENVIADO:
+Implemente uma funcao em Python para verificar se uma arvore binaria e uma Arvore Binaria de Busca (BST) valida, explicando a complexidade de tempo e espaco.
+--------------------------------------------------------------------
+RESPOSTA GERADA:
+
+Aqui está uma implementação em Python para verificar se uma árvore binária é uma Árvore Binária de Busca (BST) válida:
+
+```python
+class TreeNode:
+    def __init__(self, value=0, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+def is_bst(root):
+    def is_bst_util(node, left=float('-inf'), right=float('inf')):
+        if not node:
+            return True
+        if not (left < node.value < right):
+            return False
+        return (is_bst_util(node.left, left, node.value) and
+                is_bst_util(node.right, node.value, right))
+    return is_bst_util(root)
+
+# Exemplo de uso:
+# Construindo uma árvore binária de exemplo
+#       4
+#      / \
+#     2   5
+#    / \
+#   1   3
+root = TreeNode(4)
+root.left = TreeNode(2)
+root.right = TreeNode(5)
+root.left.left = TreeNode(1)
+root.left.right = TreeNode(3)
+
+# Verificando se a árvore é uma BST
+print(is_bst(root))  # Saída: True
+```
+
+### Explicação:
+
+1. **Definição da Classe `TreeNode`:**
+   - Cada nó da árvore binária contém um valor (`value`), um nó esquerdo (`left`) e um nó direito (`right`).
+
+2. **Função `is_bst`:**
+   - Esta função é a interface principal que chama a função auxiliar `is_bst_util` para verificar se a árvore é uma BST.
+
+3. **Função Auxiliar `is_bst_util`:**
+   - Esta função é recursiva e verifica se a subárvore com raiz em `node` é uma BST.
+   - Ela usa dois parâmetros adicionais, `left` e `right`, que representam os limites inferiores e superiores permitidos para os valores dos nós na subárvore.
+   - Se o nó atual for `None`, a função retorna `True`, pois uma árvore vazia é considerada uma BST.
+   - Se o valor do nó atual não estiver dentro dos limites permitidos (`left < node.value < right`), a função retorna `False`.
+
+
+====================================================================
